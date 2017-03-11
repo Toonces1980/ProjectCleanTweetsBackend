@@ -25,9 +25,12 @@ public class WordParser {
         System.out.println(theTweet.getUnmodifiedText());
     }
 
-//    public void parseAllWords() {
-//        tokens = TrialText.malcolmX.split(regexToSplit);
-//    }
+    public void parseAllWords(Tweet theTweet) {
+        tokens = theTweet.getUnmodifiedText().split(regexToSplit);
+        for(int special=0;special < tokens.length; special++){
+            System.out.println(tokens[special]);
+        }
+    }
 
     public void showParsedList() {
         for (int i = 0; i < tokens.length; i++) {

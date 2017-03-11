@@ -25,7 +25,8 @@ public class WordParserService {
         wordParser = new WordParser();
 //        TrialText trialText = new TrialText();
         wordParser.printTweet(tweet);
-        //      wordParser.showParsedList();
+        wordParser.parseAllWords(tweet);
+//              wordParser.showParsedList();
 //        wordParser.eliminateEmptyTokens();
 //        wordParser.showFinalList();
 //        wordParser.makeDictionaryOfFinalList();
@@ -47,9 +48,9 @@ public class WordParserService {
 //                positivematches.add(wordParser.newList.get(i));
 //            }
 //        }
-//        System.out.println("Input:   -----------------------------------------------  " + wordParser.speechName);
-//        System.out.println("posmatchsize -------------------------------------------  " +  positivematches.size() + " " + positivematches + "\n");
-//        System.out.println("negmatchsize -------------------------------------------  " +  negativematches.size() + " " + negativematches + "\n");
+        System.out.println("Input:   -----------------------------------------------  " + tweet.getFromUser());
+        System.out.println("posmatchsize -------------------------------------------  " +  positivematches.size() + " " + positivematches + "\n");
+        System.out.println("negmatchsize -------------------------------------------  " +  negativematches.size() + " " + negativematches + "\n");
 //        System.out.println("input length: " + wordParser.newList.size() + "\n");
 //        System.out.println("percent words matched: " + (double)(positivematches.size()+negativematches.size()) / wordParser.newList.size() + "\n");
 ////        for ( int i = 0; i < positivematches.size(); i++ ) {
@@ -57,10 +58,9 @@ public class WordParserService {
 ////        }
 ////        for ( int i = 0; i < negativematches.size(); i++) {
 ////            System.out.println(negativematches.get(i));
-////        }
-//        System.out.println("OVERALL SENTIMENT   ------------------------------------  " + (double)(positivematches.size() - negativematches.size()) + "\n");
-//        System.out.println("AVERAGE SENTIMENT   ------------------------------------  " + (double)(positivematches.size() - negativematches.size())/wordParser.newList.size() + "\n");
-//        System.out.println("Adjusted AVerage Sentiment -----------------------------  " + (double)((positivematches.size() - (double)negativematches.size())/(double)wordParser.newList.size())/((double)(positivematches.size()+negativematches.size()) / wordParser.newList.size()));
+        System.out.println("OVERALL SENTIMENT   ------------------------------------  " + (double)(positivematches.size() - negativematches.size()) + "\n");
+        System.out.println("AVERAGE SENTIMENT   ------------------------------------  " + (double)(positivematches.size() - negativematches.size())/wordParser.newList.size() + "\n");
+        System.out.println("Adjusted AVerage Sentiment -----------------------------  " + (double)((positivematches.size() - (double)negativematches.size())/(double)wordParser.newList.size())/((double)(positivematches.size()+negativematches.size()) / wordParser.newList.size()));
 ////        try {
 ////            System.out.println(files.importTextFileToString(inputText));
 ////        } catch (FileNotFoundException e) {
