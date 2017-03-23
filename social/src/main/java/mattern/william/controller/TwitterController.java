@@ -33,7 +33,13 @@ public class TwitterController {
 
     @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public int getTweetScore(@PathVariable String twitterHandle){
-        return wordParserService.doScore(twitter.timelineOperations().getUserTimeline(twitterHandle,1).get(0));
+        int tweetNumber = 100;
+        int tweetScore = 0;
+        List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(twitterHandle,tweetNumber);
+        for (int i = 0; i < tweetNumber; i++) {
+            tweetScore += wordParserService.doScore(tweets.get(i));
+        }
+        return tweetScore;
     }
 
 
