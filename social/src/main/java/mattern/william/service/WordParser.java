@@ -38,14 +38,6 @@ public class WordParser {
         }
     }
 
-//    public void eliminateEmptyTokens() {
-//        for (int i = 0; i < tokens.length; i++) {
-//            if (!tokens[i].equals("")) {
-//                newList.add(tokens[i]);
-//            }
-//        }
-//    }
-
     public void showFinalList() {
         for (int i = 0; i < newList.size(); i++) {
             System.out.println(newList.get(i));

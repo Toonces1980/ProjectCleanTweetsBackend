@@ -1,6 +1,5 @@
 package mattern.william.controller;
 
-import mattern.william.entity.AnalyzedTweet;
 import mattern.william.service.WordParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -31,4 +30,11 @@ public class TwitterController {
     public List<Tweet> getTweets(@PathVariable String twitterHandle){
         return twitter.timelineOperations().getUserTimeline(twitterHandle,1);
     }
+
+    @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public int getTweetScore(@PathVariable String twitterHandle){
+        return -1;
+    }
+
+
 }
