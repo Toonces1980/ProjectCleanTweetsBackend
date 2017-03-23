@@ -15,11 +15,6 @@ public class WordParser {
     private String regexToSplit = "(\\W)";
     public ArrayList<String> newList = new ArrayList<String>();
     private HashMap<String, Integer> wordCounts = new HashMap<String, Integer>();
-    public String speechName = "ObamaKeyNote";
-
-    public void speechName () {
-        System.out.println(speechName);
-    }
 
     public void printTweet(Tweet theTweet){
         System.out.println(theTweet.getUnmodifiedText());
@@ -28,7 +23,7 @@ public class WordParser {
     public void parseAllWords(Tweet theTweet) {
         tokens = theTweet.getUnmodifiedText().split(regexToSplit);
         for(int special=0;special < tokens.length; special++){
-            System.out.println(tokens[special]);
+           newList.add(tokens[special]);
         }
     }
 
