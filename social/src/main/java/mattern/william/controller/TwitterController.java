@@ -2,11 +2,13 @@ package mattern.william.controller;
 
 import mattern.william.service.WordParserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -51,4 +53,33 @@ public class TwitterController {
         }
         return tweetScore;
     }
+
+
+    @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<String> getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){
+        List<String> results = new ArrayList<>();
+        String winner = "";
+        int tweetScore1 = 0;
+        int tweetScore2 = 0;
+        List<Tweet> tweets1= twitter.timelineOperations().getUserTimeline(twitterHandle1,tweetNumber);
+        for (Tweet tweet: tweets1) {
+            tweetScore1 += wordParserService.doScore(tweet);
+        }
+        List<Tweet> tweets2= twitter.timelineOperations().getUserTimeline(twitterHandle2,tweetNumber);
+        for (Tweet tweet: tweets2) {
+            tweetScore2 += wordParserService.doScore(tweet);
+        }
+        if (tweetScore1 > tweetScore2) {
+           results.add(twitterHandle1);
+        } else if (tweetScore2 > tweetScore1) {
+            results.add(twitterHandle2);
+        } else {
+            results.add("Its a tie!!!!!");
+        }
+        results.add(String.valueOf(tweetScore1));
+        results.add(String.valueOf(tweetScore2));
+        return results;
+    }
+
+
 }
