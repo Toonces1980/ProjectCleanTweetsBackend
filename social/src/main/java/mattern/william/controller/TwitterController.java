@@ -51,4 +51,24 @@ public class TwitterController {
         }
         return tweetScore;
     }
+
+    @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){
+        String winner = "";
+        int tweetScore1 = 0;
+        int tweetScore2 = 0;
+        List<Tweet> tweets1= twitter.timelineOperations().getUserTimeline(twitterHandle1,tweetNumber);
+        for (int i = 0; i < tweetNumber; i++) {
+            tweetScore1 += wordParserService.doScore(tweets1.get(i));
+        }
+        List<Tweet> tweets2= twitter.timelineOperations().getUserTimeline(twitterHandle2,tweetNumber);
+        for (int i = 0; i < tweetNumber; i++) {
+            tweetScore2 += wordParserService.doScore(tweets2.get(i));
+        }
+        if (tweetScore1 > tweetScore2) {
+           return twitterHandle1;
+        } else if (tweetScore2 > tweetScore1) {
+            return twitterHandle2;
+        } else return "Its a tie!!!!!";
+    }
 }
