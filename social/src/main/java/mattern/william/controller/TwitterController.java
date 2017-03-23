@@ -62,12 +62,12 @@ public class TwitterController {
         int tweetScore1 = 0;
         int tweetScore2 = 0;
         List<Tweet> tweets1= twitter.timelineOperations().getUserTimeline(twitterHandle1,tweetNumber);
-        for (int i = 0; i < tweetNumber; i++) {
-            tweetScore1 += wordParserService.doScore(tweets1.get(i));
+        for (Tweet tweet: tweets1) {
+            tweetScore1 += wordParserService.doScore(tweet);
         }
         List<Tweet> tweets2= twitter.timelineOperations().getUserTimeline(twitterHandle2,tweetNumber);
-        for (int i = 0; i < tweetNumber; i++) {
-            tweetScore2 += wordParserService.doScore(tweets2.get(i));
+        for (Tweet tweet: tweets2) {
+            tweetScore2 += wordParserService.doScore(tweet);
         }
         if (tweetScore1 > tweetScore2) {
            results.add(twitterHandle1);
