@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.social.twitter.api.Twitter;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,19 +17,18 @@ public class TwitterController {
 
     public static final String TWITTER_BASE_URI = "svc/v1/tweets";
 
-    @Autowired
-    private Twitter twitter;
+    private final Twitter twitter;
+
+    private final WordParserService wordParserService;
 
     @Autowired
-    private WordParserService wordParserService;
+    public TwitterController(Twitter twitter, WordParserService wordParserService){
+        this.twitter = twitter;
+        this.wordParserService = wordParserService;
+    }
 
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<Tweet> getTweets(){
-        //TODO get tweets, for each tweet assign a sentiment value, add value to tweet object
-        List<Tweet> singleTweet = twitter.timelineOperations().getUserTimeline("realDonaldTrump",1);
-        for (Tweet tweet:singleTweet){
-            wordParserService.doScore(tweet);
-        }
-        return twitter.timelineOperations().getUserTimeline("realDonaldTrump",1);
+    @RequestMapping(value="/{twitterHandle}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<Tweet> getTweets(@PathVariable String twitterHandle){
+        return twitter.timelineOperations().getUserTimeline(twitterHandle,1);
     }
 }
