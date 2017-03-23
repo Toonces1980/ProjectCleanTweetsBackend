@@ -1,5 +1,6 @@
 package mattern.william.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Tweet;
 
 /**
@@ -14,8 +15,6 @@ public class AnalyzedTweet {
         this.theTweet = theTweet;
         this.theScore = 0;//import logic here
     }
-
     public void setTheScoreScore(Tweet theTweet){
-
     }
 }
