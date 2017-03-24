@@ -16,4 +16,28 @@ public class AnalyzedTweetService {
     public Collection<AnalyzedTwitterHandle> getAllAnalyzedTwitterHandles() {
         return analyzedTwitterHandleDao.getAllAnalyzedTwitterHandles();
     }
+
+    public AnalyzedTwitterHandle getAnalyzedTwitterHandleByID(int id){
+        return analyzedTwitterHandleDao.getAnalyzedTwitterHandleByID(id);
+    }
+
+    public AnalyzedTwitterHandle getAnalyzedTwitterHandleByHandle(String handle){
+        return analyzedTwitterHandleDao.getAnalyzedTwitterHandleByHandle(handle);
+    }
+
+    public void removeHandle(int id){
+        analyzedTwitterHandleDao.removeHandleByID(id);
+    }
+
+    public void removeHandle(String twitterHandle){
+        analyzedTwitterHandleDao.removeHandleByHandle(twitterHandle);
+    }
+
+    public void updateHandleByID(int id){
+        analyzedTwitterHandleDao.removeHandleByID(id);
+    }
+
+    public void createNewHandle(AnalyzedTwitterHandle handle){
+        analyzedTwitterHandleDao.insertHandle(handle);
+    }
 }

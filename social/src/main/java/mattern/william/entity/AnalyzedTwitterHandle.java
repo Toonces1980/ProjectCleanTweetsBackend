@@ -7,18 +7,27 @@ import org.springframework.social.twitter.api.Tweet;
 import java.util.Date;
 
 public class AnalyzedTwitterHandle {
-
+    private int id;
     private String twitterHandle;
     private int postiveScore;
     private int negativeScore;
 
-    public AnalyzedTwitterHandle(String twitterHandle, int postiveScore, int negativeScore) {
+    public AnalyzedTwitterHandle(int id, String twitterHandle, int postiveScore, int negativeScore) {
+        this.id = id;
         this.twitterHandle = twitterHandle;
         this.postiveScore = postiveScore;
         this.negativeScore = negativeScore;
     }
 
     public AnalyzedTwitterHandle(){}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTwitterHandle() {
         return twitterHandle;

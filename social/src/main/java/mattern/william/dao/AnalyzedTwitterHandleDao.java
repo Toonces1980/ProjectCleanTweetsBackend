@@ -14,14 +14,43 @@ public class AnalyzedTwitterHandleDao {
     static {
         analyzedTwitterHandles = new HashMap<Integer, AnalyzedTwitterHandle>() {
             {
-                put(1, new AnalyzedTwitterHandle("realdonaldtrump", 75, 50));
-                put(2, new AnalyzedTwitterHandle("normmacdonald", 42, 50));
-                put(3, new AnalyzedTwitterHandle("oprah", 142, 50));
+                put(1, new AnalyzedTwitterHandle(1,"realdonaldtrump", 75, 50));
+                put(2, new AnalyzedTwitterHandle(2,"normmacdonald", 42, 50));
+                put(3, new AnalyzedTwitterHandle(3,"oprah", 142, 50));
             }
         };
     }
 
     public Collection<AnalyzedTwitterHandle> getAllAnalyzedTwitterHandles() {
-        return this.analyzedTwitterHandles.values();
+        return analyzedTwitterHandles.values();
+    }
+
+    public AnalyzedTwitterHandle getAnalyzedTwitterHandleByID(int id){
+        return analyzedTwitterHandles.get(id);
+    }
+
+    public void removeHandleByID(int id){
+        analyzedTwitterHandles.remove(id);
+    }
+
+    public void removeHandleByHandle(String handle){
+        for(AnalyzedTwitterHandle theHandle:analyzedTwitterHandles.values()){
+            if(theHandle.getTwitterHandle().equals(handle)){
+                analyzedTwitterHandles.remove(theHandle.getId());
+            }
+        }
+    }
+
+    public void insertHandle(AnalyzedTwitterHandle handle) {
+        analyzedTwitterHandles.put(handle.getId(),handle);
+    }
+
+    public AnalyzedTwitterHandle getAnalyzedTwitterHandleByHandle(String handle) {
+        for(AnalyzedTwitterHandle analyzedHandle:analyzedTwitterHandles.values()){
+            if(analyzedHandle.getTwitterHandle().equals(handle)){
+                return analyzedHandle;
+            }
+        }
+        return null;
     }
 }
