@@ -1,5 +1,7 @@
 package mattern.william.controller;
 
+import mattern.william.entity.AnalyzedTwitterHandle;
+import mattern.william.service.AnalyzedTweetService;
 import mattern.william.service.WordParserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,7 @@ import org.springframework.social.twitter.api.Twitter;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -22,10 +25,13 @@ public class TwitterController {
 
     private final WordParserService wordParserService;
 
+    private final AnalyzedTweetService analyzedTweetService;
+
     @Autowired
-    public TwitterController(Twitter twitter, WordParserService wordParserService){
+    public TwitterController(Twitter twitter, WordParserService wordParserService, AnalyzedTweetService analyzedTweetService){
         this.twitter = twitter;
         this.wordParserService = wordParserService;
+        this.analyzedTweetService = analyzedTweetService;
     }
 
     @RequestMapping(value="/{twitterHandle}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -52,6 +58,11 @@ public class TwitterController {
             tweetScore += wordParserService.doScore(tweets.get(i));
         }
         return tweetScore;
+    }
+
+    @RequestMapping(value="/scores", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Collection<AnalyzedTwitterHandle> getScores(){
+        return analyzedTweetService.getAllAnalyzedTwitterHandles();
     }
 
 
