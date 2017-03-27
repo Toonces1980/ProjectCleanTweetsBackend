@@ -106,5 +106,4 @@ public class TwitterController {
         return results;
     }
 
-
 }

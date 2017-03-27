@@ -1,10 +1,8 @@
 package mattern.william.entity;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.social.twitter.api.Tweet;
-
-
-import java.util.Date;
 
 public class AnalyzedTwitterHandle {
     private int id;

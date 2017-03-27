@@ -1,8 +1,10 @@
 package mattern.william.service;
 
 import mattern.william.dao.AnalyzedTwitterHandleDao;
+import mattern.william.dao.HashMapDaoImpl;
 import mattern.william.entity.AnalyzedTwitterHandle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -11,6 +13,7 @@ import java.util.Collection;
 public class AnalyzedTweetService {
 
     @Autowired
+    @Qualifier("mysql")
     private AnalyzedTwitterHandleDao analyzedTwitterHandleDao;
 
     public Collection<AnalyzedTwitterHandle> getAllAnalyzedTwitterHandles() {
