@@ -78,7 +78,7 @@ public class TwitterController {
     }
 
     @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Map<String,String> getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){
+    public List<String> getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){
         Map<String, String>battleMap = new HashMap<>();
         List<String> results = new ArrayList<>();
         {
@@ -162,7 +162,7 @@ public class TwitterController {
             battleMap.put("tweet2Neg", String.valueOf(tweet2Neg));
             results.add(String.valueOf(tweet2Neg));
         }
-        return battleMap;
+        return results;
     }
 
 
