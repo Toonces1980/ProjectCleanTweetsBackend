@@ -36,16 +36,34 @@ public class TwitterController {
     public List<Tweet> getTweets(@PathVariable String twitterHandle){
         return twitter.timelineOperations().getUserTimeline(twitterHandle,1);
     }
+//
+//    @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+//    public int getTweetScore(@PathVariable String twitterHandle){
+//        int tweetNumber = 100;
+//        int tweetScore = 0;
+//        List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(twitterHandle,tweetNumber);
+//        for (int i = 0; i < tweetNumber; i++) {
+//            tweetScore += wordParserService.doScore(tweets.get(i))[0];
+//        }
+//        return tweetScore;
+//    }
 
     @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public int getTweetScore(@PathVariable String twitterHandle){
+    public List<String> getTweetScore(@PathVariable String twitterHandle){
+        List<String> results = new ArrayList<>();
         int tweetNumber = 100;
-        int tweetScore = 0;
+        int tweetScore = 0, tweetPos = 0, tweetNeg = 0;
         List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(twitterHandle,tweetNumber);
-        for (int i = 0; i < tweetNumber; i++) {
-            tweetScore += wordParserService.doScore(tweets.get(i))[0];
+        for (Tweet tweet: tweets) {
+            tweetScore += wordParserService.doScore(tweet)[0];
+            tweetPos += wordParserService.doScore(tweet)[1];
+            tweetNeg += wordParserService.doScore(tweet)[2];
         }
-        return tweetScore;
+        results.add(twitterHandle);
+        results.add(String.valueOf(tweetScore));
+        results.add(String.valueOf(tweetPos));
+        results.add(String.valueOf(tweetNeg));
+        return results;
     }
 
     @RequestMapping(value="/{twitterHandle}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
