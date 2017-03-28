@@ -1,8 +1,7 @@
 package mattern.william.service;
 
 import mattern.william.entity.DetailedAnalysis;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import mattern.william.entity.DetailedAnalysisBuilder;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +51,62 @@ public class WordParserService {
         return countArr;
     }
 
-    public DetailedAnalysis getDetailedAnalysis(List<Tweet> tweetsList){
-        System.out.println(tweetsList.size());
-        return null;
+    public DetailedAnalysis getDetailedAnalysis(String twitterHandle, List<Tweet> tweetsList){
+        int listLength = tweetsList.size(), count = 1, posValue = 0, negValue = 0;
+        System.out.println(listLength);
+        boolean set25 = false, set50 = false, set100 = false, set200 = false;
+        DetailedAnalysisBuilder analysisBuilder = new DetailedAnalysisBuilder();
+        analysisBuilder.setTwitterHandle(twitterHandle);
+        for (Tweet tweet: tweetsList){
+            int[] countArr = doScore(tweet);
+            posValue = posValue + countArr[1];
+            negValue = negValue + countArr[2];
+            if(count == 25){
+                analysisBuilder.setPos25(posValue);
+                analysisBuilder.setNeg25(negValue);
+                set25 = true;
+            }
+            if(count == 50){
+                analysisBuilder.setPos50(posValue);
+                analysisBuilder.setNeg50(negValue);
+                set50 = true;
+            }
+            if(count ==100){
+                analysisBuilder.setPos100(posValue);
+                analysisBuilder.setNeg100(negValue);
+                set100 = true;
+            }
+            if(count ==200){
+                analysisBuilder.setPos200(posValue);
+                analysisBuilder.setNeg200(negValue);
+                set200 = true;
+            }
+            count++;
+        }
+        if(!set25){
+            analysisBuilder.setPos25(posValue);
+            analysisBuilder.setNeg25(negValue);
+        }
+        if(!set50){
+            analysisBuilder.setPos50(posValue);
+            analysisBuilder.setNeg50(negValue);
+        }
+        if(!set100){
+            analysisBuilder.setPos100(posValue);
+            analysisBuilder.setNeg100(negValue);
+        }
+        if(!set200){
+            analysisBuilder.setPos200(posValue);
+            analysisBuilder.setNeg200(negValue);
+        }
+        analysisBuilder.setPosScore(posValue);
+        analysisBuilder.setNegScore(negValue);
+        return analysisBuilder.createDetailedAnalysis();
+    }
+
+    public void print(int[] countArr){
+        System.out.print(countArr[0] + " = ");
+        System.out.print(countArr[1] + " - ");
+        System.out.println(countArr[2]);
     }
 }

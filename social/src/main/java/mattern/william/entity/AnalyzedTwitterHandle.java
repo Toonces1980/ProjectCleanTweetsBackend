@@ -11,12 +11,14 @@ public class AnalyzedTwitterHandle {
     private String twitterHandle;
     private int postiveScore;
     private int negativeScore;
+    private int totalScore;
 
     public AnalyzedTwitterHandle(int id, String twitterHandle, int postiveScore, int negativeScore) {
         this.id = id;
         this.twitterHandle = twitterHandle;
         this.postiveScore = postiveScore;
         this.negativeScore = negativeScore;
+        this.totalScore = postiveScore - negativeScore;
     }
 
     public AnalyzedTwitterHandle(String twitterHandle, int postiveScore, int negativeScore) {
@@ -24,6 +26,7 @@ public class AnalyzedTwitterHandle {
         this.twitterHandle = twitterHandle;
         this.postiveScore = postiveScore;
         this.negativeScore = negativeScore;
+        this.totalScore = postiveScore - negativeScore;
     }
 
     public AnalyzedTwitterHandle(){}
@@ -60,5 +63,11 @@ public class AnalyzedTwitterHandle {
         this.negativeScore = negativeScore;
     }
 
+    public int getTotalScore() {
+        return totalScore;
+    }
 
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
 }

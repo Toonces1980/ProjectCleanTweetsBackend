@@ -69,7 +69,7 @@ public class TwitterController {
 
     @RequestMapping(value="/{twitterHandle}/score/detail", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public DetailedAnalysis getDetailedAnalysis(@PathVariable String twitterHandle){
-        return new DetailedAnalysis();
+        return wordParserService.getDetailedAnalysis(twitterHandle, twitter.timelineOperations().getUserTimeline(twitterHandle,200));
     }
 
     @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
