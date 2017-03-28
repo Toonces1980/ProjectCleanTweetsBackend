@@ -20,7 +20,7 @@ public class SocialApplicationTests {
 	@Autowired
 	MockMvc mockMvc;
 
-	public MockHttpServletRequestBuilder getTweets = get("/svc/v1/tweets");
+	public MockHttpServletRequestBuilder getTweets = get("/svc/v1/tweets/realdonaldtrump");
 
 	@Test
 	public void contextLoads() throws Exception {
