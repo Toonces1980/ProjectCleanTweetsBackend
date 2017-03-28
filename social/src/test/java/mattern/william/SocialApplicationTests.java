@@ -24,6 +24,7 @@ public class SocialApplicationTests {
 	private MockHttpServletRequestBuilder getTweet = get("/svc/v1/tweets/realdonaldtrump");
 	private MockHttpServletRequestBuilder getBattle = get("/svc/v1/tweets/realdonaldtrump/normmacdonald/10/score");
 	private MockHttpServletRequestBuilder getExpert = get("/svc/v1/tweets/normmacdonald/score");
+	private MockHttpServletRequestBuilder getDetail = get("/svc/v1/tweets/normmacdonald/score/detail");
 
 	@Test
 	public void tweetEndpointTest() throws Exception {
@@ -40,6 +41,12 @@ public class SocialApplicationTests {
 	@Test
 	public void expertEndpointTest() throws Exception {
 		mockMvc.perform(getExpert).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+	}
+
+	@Test
+	public void detailEndpointTest() throws Exception {
+		mockMvc.perform(getDetail).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 }

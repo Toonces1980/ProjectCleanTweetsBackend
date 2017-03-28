@@ -1,6 +1,7 @@
 package mattern.william.controller;
 
 import mattern.william.entity.AnalyzedTwitterHandle;
+import mattern.william.entity.DetailedAnalysis;
 import mattern.william.service.AnalyzedTweetService;
 import mattern.william.service.WordParserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,17 +37,7 @@ public class TwitterController {
     public List<Tweet> getTweets(@PathVariable String twitterHandle){
         return twitter.timelineOperations().getUserTimeline(twitterHandle,1);
     }
-//
-//    @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public int getTweetScore(@PathVariable String twitterHandle){
-//        int tweetNumber = 100;
-//        int tweetScore = 0;
-//        List<Tweet> tweets= twitter.timelineOperations().getUserTimeline(twitterHandle,tweetNumber);
-//        for (int i = 0; i < tweetNumber; i++) {
-//            tweetScore += wordParserService.doScore(tweets.get(i))[0];
-//        }
-//        return tweetScore;
-//    }
+
 
     @RequestMapping(value="/{twitterHandle}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<String> getTweetScore(@PathVariable String twitterHandle){
@@ -76,7 +67,10 @@ public class TwitterController {
         return tweetScore;
     }
 
-
+    @RequestMapping(value="/{twitterHandle}/score/detail", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public DetailedAnalysis getDetailedAnalysis(@PathVariable String twitterHandle){
+        return new DetailedAnalysis();
+    }
 
     @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<String> getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){

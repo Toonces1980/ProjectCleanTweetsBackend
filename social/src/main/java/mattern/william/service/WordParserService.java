@@ -1,11 +1,13 @@
 package mattern.william.service;
 
+import mattern.william.entity.DetailedAnalysis;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.social.twitter.api.Tweet;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class WordParserService {
@@ -48,5 +50,10 @@ public class WordParserService {
         countArr[1] = posCount;
         countArr[2] = negCount;
         return countArr;
+    }
+
+    public DetailedAnalysis getDetailedAnalysis(List<Tweet> tweetsList){
+        System.out.println(tweetsList.size());
+        return null;
     }
 }

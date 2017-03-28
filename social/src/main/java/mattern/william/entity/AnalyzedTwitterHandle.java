@@ -19,6 +19,13 @@ public class AnalyzedTwitterHandle {
         this.negativeScore = negativeScore;
     }
 
+    public AnalyzedTwitterHandle(String twitterHandle, int postiveScore, int negativeScore) {
+        this.id = (int)Math.floor(Math.random());
+        this.twitterHandle = twitterHandle;
+        this.postiveScore = postiveScore;
+        this.negativeScore = negativeScore;
+    }
+
     public AnalyzedTwitterHandle(){}
 
     public int getId() {
