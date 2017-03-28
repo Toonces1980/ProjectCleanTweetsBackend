@@ -20,11 +20,18 @@ public class SocialApplicationTests {
 	@Autowired
 	MockMvc mockMvc;
 
-	public MockHttpServletRequestBuilder getTweets = get("/svc/v1/tweets/realdonaldtrump");
+	public MockHttpServletRequestBuilder getTweet = get("/svc/v1/tweets/realdonaldtrump");
+	public MockHttpServletRequestBuilder getBattle = get("/svc/v1/tweets/realdonaldtrump/normmacdonald/10/score");
 
 	@Test
-	public void contextLoads() throws Exception {
-		mockMvc.perform(getTweets).andExpect(status().isOk())
+	public void tweetEndpointTest() throws Exception {
+		mockMvc.perform(getTweet).andExpect(status().isOk())
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
+	}
+
+	@Test
+	public void battleEndpointTest() throws Exception {
+		mockMvc.perform(getBattle).andExpect(status().isOk())
 				.andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 	}
 }

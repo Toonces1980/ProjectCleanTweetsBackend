@@ -58,24 +58,7 @@ public class TwitterController {
         return tweetScore;
     }
 
-    @RequestMapping(value="/db/scores", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public Collection<AnalyzedTwitterHandle> getScores(){
-        return analyzedTweetService.getAllAnalyzedTwitterHandles();
-    }
 
-    @RequestMapping(value="/db/scores/{twitterHandle}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public AnalyzedTwitterHandle getScoresByHandle(@PathVariable String twitterHandle) throws NoSuchElementException{
-        AnalyzedTwitterHandle result = analyzedTweetService.getAnalyzedTwitterHandleByHandle(twitterHandle);
-        if(result == null){
-            throw new NoSuchElementException("no such handle in Db yet");
-        }
-        return result;
-    }
-
-    @RequestMapping(value="/db/scores/{twitterHandle}", method=RequestMethod.DELETE)
-    public void deleteAnalysisByHandle(@PathVariable String twitterHandle){
-        this.analyzedTweetService.removeHandle(twitterHandle);
-    }
 
     @RequestMapping(value="/{twitterHandle1}/{twitterHandle2}/{tweetNumber}/score", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<String> getTweetScore(@PathVariable String twitterHandle1, @PathVariable String twitterHandle2, @PathVariable int tweetNumber){
@@ -165,5 +148,24 @@ public class TwitterController {
         return results;
     }
 
+
+    @RequestMapping(value="/db/scores", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public Collection<AnalyzedTwitterHandle> getScores(){
+        return analyzedTweetService.getAllAnalyzedTwitterHandles();
+    }
+
+    @RequestMapping(value="/db/scores/{twitterHandle}", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public AnalyzedTwitterHandle getScoresByHandle(@PathVariable String twitterHandle) throws NoSuchElementException{
+        AnalyzedTwitterHandle result = analyzedTweetService.getAnalyzedTwitterHandleByHandle(twitterHandle);
+        if(result == null){
+            throw new NoSuchElementException("no such handle in Db yet");
+        }
+        return result;
+    }
+
+    @RequestMapping(value="/db/scores/{twitterHandle}", method=RequestMethod.DELETE)
+    public void deleteAnalysisByHandle(@PathVariable String twitterHandle){
+        this.analyzedTweetService.removeHandle(twitterHandle);
+    }
 
 }
