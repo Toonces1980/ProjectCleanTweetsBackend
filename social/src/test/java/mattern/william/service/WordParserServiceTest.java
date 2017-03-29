@@ -51,6 +51,5 @@ public class WordParserServiceTest {
         DetailedAnalysis actual = wordParserService.getDetailedAnalysis("this is a string",mockTweets);
         verify(mockTweet).getUnmodifiedText();
         verify(mockNegative).getUnmodifiedText();
-
     }
 }
