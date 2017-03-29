@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 public class WordParserService {
-    WordParser wordParser;
+    private WordParser wordParser;
 
     public int[] doScore(Tweet tweet) {
         ArrayList<String> positivematches = new ArrayList<String>();
@@ -53,7 +53,7 @@ public class WordParserService {
 
     public DetailedAnalysis getDetailedAnalysis(String twitterHandle, List<Tweet> tweetsList){
         int listLength = tweetsList.size(), count = 1, posValue = 0, negValue = 0;
-        System.out.println(listLength);
+        System.out.println("Calculating score for " + listLength + " tweets");
         boolean set25 = false, set50 = false, set100 = false, set200 = false;
         DetailedAnalysisBuilder analysisBuilder = new DetailedAnalysisBuilder();
         analysisBuilder.setTwitterHandle(twitterHandle);
@@ -71,12 +71,12 @@ public class WordParserService {
                 analysisBuilder.setNeg50(negValue);
                 set50 = true;
             }
-            if(count ==100){
+            if(count == 100){
                 analysisBuilder.setPos100(posValue);
                 analysisBuilder.setNeg100(negValue);
                 set100 = true;
             }
-            if(count ==200){
+            if(count == 200){
                 analysisBuilder.setPos200(posValue);
                 analysisBuilder.setNeg200(negValue);
                 set200 = true;
