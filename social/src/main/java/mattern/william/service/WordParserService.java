@@ -101,6 +101,7 @@ public class WordParserService {
         }
         analysisBuilder.setPosScore(posValue);
         analysisBuilder.setNegScore(negValue);
+        analysisBuilder.setMostRecentTweet(tweetsList.get(0));
         return analysisBuilder.createDetailedAnalysis();
     }
 

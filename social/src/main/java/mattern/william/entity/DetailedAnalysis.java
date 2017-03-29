@@ -1,5 +1,7 @@
 package mattern.william.entity;
 
+import org.springframework.social.twitter.api.Tweet;
+
 /**
  * Created by williammattern on 3/28/17.
  */
@@ -16,6 +18,7 @@ public class DetailedAnalysis extends AnalyzedTwitterHandle {
     private int pos200;
     private int neg200;
     private int tot200;
+    private Tweet mostRecentTweet;
 
     public DetailedAnalysis(){
         super();
@@ -25,7 +28,8 @@ public class DetailedAnalysis extends AnalyzedTwitterHandle {
         super(twitterHandle,posScore,negScore);
     }
 
-    public DetailedAnalysis(String twitterHandle, int postiveScore, int negativeScore, int pos25, int neg25, int pos50, int neg50, int pos100, int neg100, int pos200, int neg200) {
+    public DetailedAnalysis(String twitterHandle, int postiveScore, int negativeScore, int pos25, int neg25, int pos50,
+                            int neg50, int pos100, int neg100, int pos200, int neg200, Tweet mostRecentTweet) {
         super(twitterHandle, postiveScore, negativeScore);
         this.pos25 = pos25;
         this.neg25 = neg25;
@@ -39,6 +43,7 @@ public class DetailedAnalysis extends AnalyzedTwitterHandle {
         this.pos200 = pos200;
         this.neg200 = neg200;
         this.tot200 = pos200 - neg200;
+        this.mostRecentTweet = mostRecentTweet;
     }
 
     public int getPos25() {
@@ -135,5 +140,13 @@ public class DetailedAnalysis extends AnalyzedTwitterHandle {
 
     public void setTot200(int tot200) {
         this.tot200 = tot200;
+    }
+
+    public Tweet getMostRecentTweet() {
+        return mostRecentTweet;
+    }
+
+    public void setMostRecentTweet(Tweet mostRecentTweet) {
+        this.mostRecentTweet = mostRecentTweet;
     }
 }

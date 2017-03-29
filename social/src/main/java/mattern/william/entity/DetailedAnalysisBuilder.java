@@ -1,5 +1,7 @@
 package mattern.william.entity;
 
+import org.springframework.social.twitter.api.Tweet;
+
 public class DetailedAnalysisBuilder {
     private String twitterHandle;
     private int posScore;
@@ -13,6 +15,7 @@ public class DetailedAnalysisBuilder {
     private int neg100;
     private int pos200;
     private int neg200;
+    private Tweet mostRecentTweet;
 
     public DetailedAnalysisBuilder setTwitterHandle(String twitterHandle) {
         this.twitterHandle = twitterHandle;
@@ -74,7 +77,13 @@ public class DetailedAnalysisBuilder {
         return this;
     }
 
+    public DetailedAnalysisBuilder setMostRecentTweet(Tweet mostRecentTweet){
+        this.mostRecentTweet = mostRecentTweet;
+        return this;
+    }
+
     public DetailedAnalysis createDetailedAnalysis() {
-        return new DetailedAnalysis(twitterHandle, posScore, negScore, pos25, neg25, pos50, neg50, pos100, neg100, pos200, neg200);
+        return new DetailedAnalysis(twitterHandle, posScore, negScore, pos25, neg25, pos50, neg50, pos100, neg100,
+                pos200, neg200, mostRecentTweet);
     }
 }
