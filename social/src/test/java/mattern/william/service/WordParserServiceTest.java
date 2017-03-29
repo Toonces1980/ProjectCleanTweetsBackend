@@ -3,11 +3,7 @@ package mattern.william.service;
 import mattern.william.entity.DetailedAnalysis;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.twitter.api.Tweet;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,30 +16,33 @@ import static org.mockito.Mockito.when;
  * Created by williammattern on 3/29/17.
  */
 public class WordParserServiceTest {
-
-    int[] intArray = {1,2,3};
-
-    Tweet mockTweet = mock(Tweet.class);
-    Tweet mockNegative = mock(Tweet.class);
-    List<Tweet> mockTweets;
-
-    WordParserService wordParserService = new WordParserService();
+    private Tweet mockTweet, mockNegative;
+    private List<Tweet> mockTweets;
+    private WordParserService wordParserService;
 
     @Before
     public void setUp() throws Exception {
+        mockTweet = mock(Tweet.class);
+        mockNegative = mock(Tweet.class);
+        wordParserService = new WordParserService();
         mockTweets = new ArrayList<>();
-        when(mockTweet.getUnmodifiedText()).thenReturn("Happy love joy awesome");
-        when(mockNegative.getUnmodifiedText()).thenReturn("Don't worry, be happy, sucker");
         mockTweets.add(mockTweet);
         mockTweets.add(mockNegative);
+        when(mockTweet.getUnmodifiedText()).thenReturn("Happy love joy awesome");
+        when(mockNegative.getUnmodifiedText()).thenReturn("Don't worry, be happy, sucker");
     }
 
     @Test
     public void doScoreTest(){
-        int[] actualPos = wordParserService.doScore(mockTweet), expectedPos = {3,3,0};
-        int[] actualNeg = wordParserService.doScore(mockNegative), expectedNeg = {-1,1,2};
-        assertArrayEquals(expectedPos, actualPos);
-        assertArrayEquals(expectedNeg, actualNeg);
+        int[] actualPos = wordParserService.doScore(mockTweet);
+        int[] actualNeg = wordParserService.doScore(mockNegative);
+        verify(mockTweet).getUnmodifiedText();//asserting that text is actually being used
+        verify(mockNegative).getUnmodifiedText();//asserting that text is actually being used
+        assertTrue(actualNeg[1]>=0);//asserting that no negative value is being found
+        assertTrue(actualNeg[2]>=0);//asserting that no negative value is being found
+        assertTrue(actualPos[1]>=0);//asserting that no negative value is being found
+        assertTrue(actualPos[2]>=0);//asserting that no negative value is being found
+        assertNotEquals(actualPos[0], actualNeg[0]);//asserting that doScore is finding differences
     }
 
     @Test
