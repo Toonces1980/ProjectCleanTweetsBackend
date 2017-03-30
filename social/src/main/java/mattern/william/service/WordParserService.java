@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class WordParserService {
@@ -51,7 +52,7 @@ public class WordParserService {
         return countArr;
     }
 
-    public DetailedAnalysis getDetailedAnalysis(String twitterHandle, List<Tweet> tweetsList){
+    public DetailedAnalysis getDetailedAnalysis(String twitterHandle, List<Tweet> tweetsList) {
         int listLength = tweetsList.size(), count = 1, posValue = 0, negValue = 0;
         System.out.println("Calculating score for " + listLength + " tweets");
         boolean set25 = false, set50 = false, set100 = false, set200 = false;
